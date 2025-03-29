@@ -27,13 +27,12 @@ FROM source.mock_data md
 
          LEFT JOIN snowflake.d_postal_code cp ON cp.postal_code = md.customer_postal_code
 
-         LEFT JOIN snowflake.d_pet p ON p.pet_name = md.customer_pet_name
-
-         LEFT JOIN snowflake.d_pet_type pt ON pt.pet_type_name = md.customer_pet_type AND pt.pet_type_id = p.pet_type_id
+         LEFT JOIN snowflake.d_pet_type pt ON pt.pet_type_name = md.customer_pet_type
 
          LEFT JOIN snowflake.d_pet_breed pb
-                   ON pb.pet_breed_name = md.customer_pet_breed AND pb.pet_type_id = pt.pet_type_id AND
-                      pb.pet_breed_id = p.pet_breed_id
+                   ON pb.pet_breed_name = md.customer_pet_breed AND pb.pet_type_id = pt.pet_type_id
+
+         LEFT JOIN snowflake.d_pet p ON p.pet_name = md.customer_pet_name AND p.pet_breed_id = pb.pet_breed_id AND p.pet_type_id = pt.pet_type_id
 
          LEFT JOIN snowflake.d_seller s ON
     s.seller_first_name = md.seller_first_name AND

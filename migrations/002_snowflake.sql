@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS snowflake.d_pet
     pet_name     varchar(50) not null,
     pet_type_id  integer references snowflake.d_pet_type (pet_type_id),
     pet_breed_id integer references snowflake.d_pet_breed (pet_breed_id),
-    unique(pet_name, pet_type_id, pet_bree)
+    unique(pet_name, pet_type_id, pet_breed_id)
 );
 
 CREATE TABLE IF NOT EXISTS snowflake.d_postal_code
