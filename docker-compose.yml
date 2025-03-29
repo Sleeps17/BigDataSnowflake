@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: lab1
+      POSTGRES_USER: bachurin_pavel
+      POSTGRES_PASSWORD: str0ng_passw0rd
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./source:/source
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bachurin_pavel -d lab1"]
+      interval: 5s
+      retries: 5
+
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase_migrations
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./changelog.xml:/liquibase/changelog.xml
+      - ./migrations:/liquibase/migrations
+    command:
+      [
+        "update",
+        "--changelog-file=changelog.xml",
+        "--url=jdbc:postgresql://postgres:5432/lab1",
+        "--username=bachurin_pavel",
+        "--password=str0ng_passw0rd"
+      ]
+
+volumes:
+  pgdata:
