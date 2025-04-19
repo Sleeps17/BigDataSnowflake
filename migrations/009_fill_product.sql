@@ -72,7 +72,7 @@ FROM source.mock_data md
          LEFT JOIN snowflake.d_product_material dpm ON dpm.product_material_name = md.product_material
          LEFT JOIN snowflake.d_date dd1 ON dd1.date = md.product_release_date
          LEFT JOIN snowflake.d_date dd2 ON dd2.date = md.product_expiry_date
-
+         LEFT JOIN snowflake.d_supplier ds ON md.supplier_name = ds.supplier_name
 ON CONFLICT DO NOTHING;
 
 

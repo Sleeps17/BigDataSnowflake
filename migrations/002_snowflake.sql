@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS snowflake.d_pet
     pet_name     varchar(50) not null,
     pet_type_id  integer references snowflake.d_pet_type (pet_type_id),
     pet_breed_id integer references snowflake.d_pet_breed (pet_breed_id),
-    unique(pet_name, pet_type_id, pet_breed_id)
+    unique (pet_name, pet_type_id, pet_breed_id)
 );
 
 CREATE TABLE IF NOT EXISTS snowflake.d_postal_code
@@ -164,7 +164,8 @@ CREATE TABLE IF NOT EXISTS snowflake.d_product
     product_rating          numeric(10, 2),
     product_reviews         integer,
     product_release_date_id bigint references snowflake.d_date (date_id),
-    product_expire_date_id  bigint references snowflake.d_date (date_id)
+    product_expire_date_id  bigint references snowflake.d_date (date_id),
+    product_supplier_id     bigint references snowflake.d_supplier (supplier_id)
 );
 
 CREATE TABLE IF NOT EXISTS snowflake.d_store_location
@@ -189,7 +190,7 @@ CREATE TABLE IF NOT EXISTS snowflake.d_store
     store_country_id  integer references snowflake.d_country (country_id),
     store_phone       varchar(15) not null,
     store_email       varchar(50) not null,
-    unique(store_name, store_location_id, store_city_id, store_state_id, store_country_id, store_phone, store_email)
+    unique (store_name, store_location_id, store_city_id, store_state_id, store_country_id, store_phone, store_email)
 );
 
 CREATE TABLE IF NOT EXISTS snowflake.f_sale
